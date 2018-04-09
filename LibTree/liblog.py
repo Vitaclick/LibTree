@@ -1,6 +1,13 @@
 def execute(sheet, files):
   sheetFiles = sheet.col_values(1)
-
+  # Determinate files that will be removed from sheet
+  transposedFiles = list(map(list, zip(*files)))
+  depracatedFiles = [sheetFiles.index(f) + 1 for f in sheetFiles if f not in transposedFiles[2]]
+  depracatedCells = list(map(lambda i: sheet.acell("A{0}".format(i)), depracatedFiles))
+  for c in depracatedCells:
+    c.value += "kek"
+  sheet.update_cells(depracatedCells)
+  ke = 1
   # filesBuffer = []
   # # Update existing rows
   # for sheetFile in sheetFiles:
