@@ -33,7 +33,8 @@ client = gspread.authorize(creds)
 sheet = client.open_by_key('1HLsMD4mmRXiKXQ4wMYcHFYD3BmaoGmmHvZbNIv_Ado8').sheet1
 
 # Time scheduling
-# ...
+# while True:
+#   time.sleep(30)
 
 # Extract files statistics
 # libpath = r"C:\Drive\BIM4US\Ресурсы\Artpot\Семейства"
@@ -52,6 +53,8 @@ for f in filepaths:
 output = liblog.execute(sheet, filesStatistics)
 
 # Debug
+"""
 import pprint
 pp = pprint.PrettyPrinter()
 print(pp.pprint(output))
+"""
