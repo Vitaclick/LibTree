@@ -10,17 +10,20 @@ from oauth2client.contrib import gce
 # File statistics
 def getFileStat(filepath):  
   fileStats = []
+
+  # Parsing file name
+  fullFilename = os.path.basename(filepath)
+  fileStats.append(os.path.splitext(fullFilename)[0])
+
   # Write file path
   fileStats.append(filepath)
+
   # Calculate modification time
   stats = os.stat(filepath)
   statTime = time.localtime(stats.st_mtime)
   statTime = [str(t) for t in statTime]
   date = f"{statTime[2]}.{statTime[1]}.{statTime[0]} {statTime[3]}:{statTime[4]}"
   fileStats.append(date)
-  # Parsing file name
-  fullFilename = os.path.basename(filepath)
-  fileStats.append(os.path.splitext(fullFilename)[0])
 
   return fileStats
 
