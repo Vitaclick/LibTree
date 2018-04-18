@@ -15,9 +15,14 @@ def execute(sheet, libFiles):
   if len(filesToUpdate["new"]) > 0:
     addNewFile(sheet, filesToUpdate["new"], lastRowIdx)
   
+  # Get current cells
   sheetCells = chunk(sheet.range("A1:C{0}".format(lastRowIdx)), 3)
-  updatedFiles = filesToUpdate["exist"]
   # Update existing files
+  updateFiles(sheetCells, filesToUpdate["exist"])
+  # Update flattened cell list
+  sheet.update_cells([c for row in sheetCells for c in row])
+
+def updateFiles(sheetCells, updatedFiles):
   for row in sheetCells:
     for f in updatedFiles:
       fileName = f[0]
@@ -36,11 +41,6 @@ def execute(sheet, libFiles):
             row[2].value += "\n" + fileMod
           
         break
-
-  # Update flattened cell list
-  sheet.update_cells([c for row in sheetCells for c in row])
-
-
 
 def addNewFile(sheet, libNewFiles, lastRowIdx):
   newCells = sheet.range("A{0}:C{1}".format(lastRowIdx, lastRowIdx + len(libNewFiles) - 1))
@@ -86,30 +86,3 @@ def removeDepracated(sheet, filesToRemove, limit):
 def chunk(lst, size):
   length = len(lst)
   return [lst[part:part+size] for part in range(0, length, size)]
-
-
-# filesBuffer = []
-# # Update existing rows
-# for sheetFile in sheetFiles:
-#   if sheetFile not in files:
-#     pass
-    
-
-# for i, f in enumerate(files):
-#   filename = f[2]
-  # Search for existing files
-  
-  # for j, sheetFile in enumerate(sheetFiles):
-  #   if filename == sheetFile:
-  #     sheet.update_cell(j + 1, 2, filename)
-  #   else:
-  #     sheet.update_cell(j + 1, 2, "WILL BE DELETED")
-
-
-
-  # if filename in sheetFiles:
-  #   fileRowIndx = sheetFiles.index(filename))
-  #   sheet.update_cell(fileRowIndx + 1, 2, filename)
-  # else:
-  #   filesBuffer.append(f)
-# Add new file
