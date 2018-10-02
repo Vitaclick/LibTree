@@ -41,7 +41,7 @@ sheet = client.open_by_key('1HLsMD4mmRXiKXQ4wMYcHFYD3BmaoGmmHvZbNIv_Ado8').sheet
 
 # Extract files statistics
 # libpath = r"C:\Drive\BIM4US\Ресурсы\Artpot\Семейства"
-libpath = r"D:\#Projects\#REPOS\testLib\АР"
+libpath = r"D:\#Projects\#REPOS\testLib"
 filepaths = glob.glob(libpath + "/**/*.*", recursive=True)
 filesStatistics = []
 dismissedFiles = []
